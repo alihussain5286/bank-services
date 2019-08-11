@@ -1,0 +1,32 @@
+spring:
+  application:
+    name: eureka-server
+
+server:
+  port: 8301
+
+eureka:
+  client:
+    registerWithEureka: false
+    fetchRegistry: false
+    server:
+      waitTimeInMsWhenSyncEmpty: 0
+    service-url:
+      defaultZone: @eureka.server@
+
+zuul:
+  prefix: /services
+  routes:
+    authorization:
+      path: /authserver/**
+      url: @authorization.service.endpoint.url@
+      sensitiveHeaders:
+    payment:
+      path: /payment/**
+      url: @payment.service.endpoint.url@
+      sensitiveHeaders:
+    statement:
+      path: /statement/**
+      url: @statement.service.endpoint.url@
+      sensitiveHeaders :
+      

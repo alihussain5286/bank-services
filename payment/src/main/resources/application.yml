@@ -1,0 +1,24 @@
+spring:
+  application:
+    name: payment
+
+server:
+  port: 8302
+
+eureka:
+  instance:
+    secure-port-enabled: @secure-port-enabled@
+    non-secure-port-enabled: @non-secure-port-enabled@
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: @eureka.server@
+
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 5000000
+        readTimeout: 5000000
+        loggerLevel: full

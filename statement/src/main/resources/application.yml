@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: statement
+
+server:
+  port: 8303
+
+eureka:
+  instance:
+    secure-port-enabled: @secure-port-enabled@
+    non-secure-port-enabled: @non-secure-port-enabled@
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: @eureka.server@

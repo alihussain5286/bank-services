@@ -1,0 +1,91 @@
+version: '2.4'
+
+services:
+
+   redis:                                                                          
+    image: redis
+    ports:
+          - "6379:6379" 
+                
+   docker-mysql:
+      container_name: docker-mysql
+      image: mysql:latest
+      environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=onlinebanking
+      - MYSQL_PASSWORD=root
+      ports :
+             - "3306:3306"
+      healthcheck:
+            test: [ "CMD", "mysqladmin" ,"ping", "-h", "localhost" ]
+            timeout:  60s
+            interval: 10s
+            retries:  15
+             
+   authorization:
+      container_name: authorization
+      build:
+        context: ./authorization
+        dockerfile: Dockerfile
+      ports: 
+        - "8082:8082"
+      depends_on:
+            - redis  
+            - eureka-server
+              
+   eureka-server:
+      container_name: eureka-server
+      build:
+          context: ./eureka-server
+          dockerfile: Dockerfile
+      ports: 
+            - "8301:8301"
+            
+   payment:
+      container_name: payment
+      build:
+          context: ./payment
+          dockerfile: Dockerfile
+      ports: 
+            - "8302:8302"
+      links:
+          - "docker-mysql"
+          - "redis"
+          - "statement"
+      depends_on:
+            docker-mysql:
+                condition: service_healthy
+                    
+   statement:
+      container_name: statement
+      build:
+          context: ./statement
+          dockerfile: Dockerfile
+      ports: 
+            - "8303:8303"
+      links:
+          - "docker-mysql"
+          - "redis"
+      depends_on:
+           docker-mysql:
+                condition: service_healthy
+            
+   bank-client:
+      container_name: bank-client
+      build:
+          context: ./bank-client
+          dockerfile: Dockerfile
+      ports: 
+            - "8081:8081"
+      links:
+           - "docker-mysql"
+           - "eureka-server"
+           - "payment"
+           - "statement"
+      depends_on:
+           docker-mysql:
+                condition: service_healthy
+           redis:
+                condition: service_started
+           eureka-server:
+                condition : service_started
