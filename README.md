@@ -32,6 +32,9 @@ Please follow the below instructions carefully to run the project.
 
 1. Prerequsite : 
    - Redis running on the machine.<br>
+     If you dont have have redis on your system, please download for the link mentioned then extract zip and run redis-server.
+     https://riptutorial.com/redis/example/29962/installing-and-running-redis-server-on-windows
+     
    - Mysql Database running on the machine.
    - mvn installed.
      
