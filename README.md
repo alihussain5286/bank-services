@@ -37,13 +37,13 @@ Please follow the below instructions carefully to run the project.
      
 2. Update Bank-Services main POM under DEV Profile
    1. Redis :
- 	  - For Redis there are two properties (redis.ip) & (redis.port) , please update if you have changed from default as of now it is configured with default values.
+ 	  - For Redis there are two properties (**redis.ip) & (redis.port**) , please update if you have changed from default as of now it is configured with default values.
    2. MySql :
  	  - Update DB Related details based on your configuration (url, username & password).
 
-3. Open CMD and run the command ** mvn clean install -PDev ** or if you want to skip Test then mvn clean install -PDEV -DskipTests
+3. Open CMD and run the command **mvn clean install -PDEV** or if you want to skip Test then **mvn clean install -PDEV -DskipTests**
 
-4. You should check target folder all the Jar's has been created now we need to run the Jars using cmd(java -jar <Jarname.jar> e.g java -jar authorization-1.0.0.jar)
+4. You should check target folder all the Jar's has been created now we need to run the Jars using cmd(**java -jar <Jarname.jar> e.g java -jar authorization-1.0.0.jar**)
 
 5. Preferred Order for running the Jar's
    - Eureka-Server Jar
@@ -61,13 +61,13 @@ Please follow the below instructions carefully to run the project.
 #### Note: HTTPS is disabled because of Self Signed Certificate so URL's are on http
 
 1. Prerequsite : 
-   - Docker Desktop or Docker ToolBox Installed and Running(check on cmd type ** docker --version **)
+   - Docker Desktop or Docker ToolBox Installed and Running(check on cmd type **docker --version**)
    - Good Internet connectivity as Redis & Mysql Images will be downloaded.
    - mvn installed.
      
 2. Open command prompt and go to Bank-services location 
-   1. Run (** mvn clean install -PDOCKER -DskipTests **), This will generate JAR's in target folder.
-   2. Run (** docker-compose up --build**)
+   1. Run (**mvn clean install -PDOCKER -DskipTests**), This will generate JAR's in target folder.
+   2. Run (**docker-compose up --build**)
    3. This will Take as the images will be downloaded if not present and will start Mysql as docker container.
    
 3. After all are successfully Running check the below URL's check Below for **Docker Desktop**:
